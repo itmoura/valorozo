@@ -21,6 +21,6 @@ html {
    overflow: hidden;
 }
 
-.v-messages__message {
+.suggest-name-field .v-messages__message {
    color: #fff !important;
  }

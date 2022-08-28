@@ -45,6 +45,7 @@
               label="Sugestão de nome para o site"
               prepend-inner-icon="mdi-lightbulb-on"
               messages="Melhor nome sugerido irá ganhar Selo + Brinde"
+              class="suggest-name-field"
           ></v-text-field>
 
           <div class="btnBorder">
