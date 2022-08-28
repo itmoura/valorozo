@@ -1,52 +1,77 @@
 <template>
-  <div class="home">
-    <h1 class="screenName">Signup </h1>
-    <div class="box">
-      <v-form>
-        <v-text-field
-          solo
-          v-model="password"
-          label="Nickname"
-          required
-          prepend-inner-icon="mdi-account"
-          :rules="[rules.required, rules.min]"
-        ></v-text-field>
-
-        <v-text-field
-          solo
-          v-model="email"
-          :rules="emailRules"
-          label="E-mail"
-          required
-          prepend-inner-icon="mdi-email"
-        ></v-text-field>
-
-        <v-text-field
-          solo
-          v-model="password"
-          :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
-          :type="show ? 'text' : 'password'"
-          @click:append="show = !show"
-          label="Password"
-          prepend-inner-icon="mdi-lock"
-          :rules="[rules.required, rules.min]"
-          required
-        ></v-text-field>
-
-        <div class="btnBorder">
-          <v-btn
-            class="btnSubmit"
-            @click="submit"
-          >
-            Cadastrar
-          </v-btn>
-        </div>
-      </v-form>
+  <div>
+    <div class="header">
+      <div class="header-beta">
+        <p>Pré cadastro - BETA</p>
+      </div>
     </div>
+    <div class="home">
+      <h1 class="screenName">Signup </h1>
+      <div class="box">
+        <v-form>
+          <v-text-field
+            solo
+            v-model="nickname"
+            label="Nickname"
+            required
+            prepend-inner-icon="mdi-account"
+            :rules="[rules.required, rules.min]"
+          ></v-text-field>
+
+          <v-text-field
+            solo
+            v-model="email"
+            :rules="emailRules"
+            label="E-mail"
+            required
+            prepend-inner-icon="mdi-email"
+          ></v-text-field>
+
+          <v-text-field
+            solo
+            v-model="password"
+            :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+            :type="show ? 'text' : 'password'"
+            @click:append="show = !show"
+            label="Password"
+            prepend-inner-icon="mdi-lock"
+            :rules="[rules.required, rules.min]"
+            required
+          ></v-text-field>
+
+          <v-text-field
+              solo
+              v-model="suggestName"
+              label="Sugestão de nome para o site"
+              prepend-inner-icon="mdi-lightbulb-on"
+          ></v-text-field>
+
+          <div class="btnBorder">
+            <v-btn
+              class="btnSubmit"
+              @click="submit"
+            >
+              Cadastrar
+            </v-btn>
+          </div>
+        </v-form>
+      </div>
+    </div>
+    <Footer/>
   </div>
 </template>
 
 <style scoped>
+.header {
+  width: 100vw;
+  position: absolute;
+}
+.header-beta {
+  background-color: #3EFF51;
+  color: #000;
+  text-align: center;
+  line-height: 40px;
+}
 .home{ 
   background: linear-gradient(180deg, #0F0D14 0%, #07040E 34.9%);
   height: 100vh;
@@ -100,6 +125,8 @@
 
 <script>
 
+import Footer from "@/components/Footer";
+
 export default {
   name: 'Home',
   data: () => ({
@@ -114,9 +141,13 @@ export default {
       min: v => v.length >= 0 || 'Min 8 characters',
     },
     password: '',
+    nickname: '',
+    suggestName: '',
     show: false
   }),
-  components: {},
+  components: {
+    Footer,
+  },
   methods: {
       submit () {
         console.log("TESTE")
