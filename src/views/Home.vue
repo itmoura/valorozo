@@ -33,12 +33,14 @@
           required
         ></v-text-field>
 
-        <v-btn
-          class="btnSubmit"
-          @click="submit"
-        >
-          Cadastrar
-        </v-btn>
+        <div class="btnBorder">
+          <v-btn
+            class="btnSubmit"
+            @click="submit"
+          >
+            Cadastrar
+          </v-btn>
+        </div>
       </v-form>
     </div>
   </div>
@@ -78,6 +80,12 @@
   width: 35vw;
   max-width: 420px;
 }
+.btnBorder {
+  padding: 6px;
+  border: 1px solid #FA464F;
+  filter: drop-shadow(0px 0px 5px #FA464F);
+  margin-top: 20px;
+}
 .btnSubmit {
   width: 100%;
   height: 50px !important;
@@ -86,7 +94,7 @@
   font-family: 'Industry-Medium';
   letter-spacing: 0.1em;
   font-size: 1.1rem;
-  margin-top:20px
+  border-radius: 0;
 }
 </style>
 
