@@ -29,7 +29,7 @@
                   v-for="(item, index) in items"
                   :key="index"
                 >
-                  <v-list-item-title @click="funcs[i-1] = item.title, teste()">{{ item.title }}</v-list-item-title>
+                  <v-list-item-title @click="funcs[i-1] = item.title, teste()" style="cursor: pointer;">{{ item.title }}</v-list-item-title>
                 </v-list-item>
               </v-list>
             </v-menu>
