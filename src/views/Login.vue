@@ -6,56 +6,44 @@
       </div>
     </div>
     <div class="home">
-      <h1 class="screenName">Signup </h1>
+      <h1 class="screenName">Login </h1>
       <div class="box">
-        <v-form>
+        <v-form ref="form" v-model="valid">
           <v-text-field
-            solo
-            v-model="nickname"
-            label="Nickname"
-            required
-            prepend-inner-icon="mdi-account"
-            :rules="[rules.required, rules.min]"
-          ></v-text-field>
-
-          <v-text-field
-            solo
-            v-model="email"
-            :rules="emailRules"
-            label="E-mail"
-            required
-            prepend-inner-icon="mdi-email"
-          ></v-text-field>
-
-          <v-text-field
-            solo
-            v-model="password"
-            :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
-            :type="show ? 'text' : 'password'"
-            @click:append="show = !show"
-            label="Password"
-            prepend-inner-icon="mdi-lock"
-            :rules="[rules.required, rules.min]"
-            required
+              solo
+              v-model="email"
+              :rules="emailRules"
+              label="E-mail"
+              required
+              prepend-inner-icon="mdi-email"
           ></v-text-field>
 
           <v-text-field
               solo
-              v-model="suggestName"
-              label="Sugestão de nome para o site"
-              prepend-inner-icon="mdi-lightbulb-on"
-              messages="Melhor nome sugerido irá ganhar Selo + Brinde"
-              class="suggest-name-field"
+              v-model="password"
+              :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+              :type="show ? 'text' : 'password'"
+              @click:append="show = !show"
+              label="Password"
+              prepend-inner-icon="mdi-lock"
+              :rules="[rules.required, rules.min]"
+              required
           ></v-text-field>
 
           <div class="btnBorder">
             <v-btn
-              class="btnSubmit"
-              @click="submit"
+                class="btnSubmit"
+                @click="submit"
             >
-              Cadastrar
+              Entrar
             </v-btn>
           </div>
+          <v-btn
+              class="btnBack"
+              href="/signup"
+          >
+            Não tenho conta.
+          </v-btn>
         </v-form>
       </div>
     </div>
@@ -74,7 +62,7 @@
   text-align: center;
   line-height: 40px;
 }
-.home{ 
+.home{
   background: linear-gradient(180deg, #0F0D14 0%, #07040E 34.9%);
   height: 100vh;
 }
@@ -91,7 +79,7 @@
   font-size: 1.5rem;
 }
 
-.box {    
+.box {
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -124,6 +112,18 @@
   border-radius: 0;
 }
 
+.btnBack {
+  margin-top: 15px;
+  height: 50px !important;
+  width: 100%;
+  background: transparent !important;
+  color: #fff;
+  font-family: 'Industry-Medium';
+  letter-spacing: 0.1em;
+  font-size: 1.1rem;
+  border-radius: 0;
+}
+
 @media screen and (max-width: 910px) {
   .box {
     width: 100%;
@@ -137,9 +137,10 @@
 <script>
 
 import Footer from "@/components/Footer";
+import Vue from "vue";
 
 export default {
-  name: 'Home',
+  name: 'Signup',
   data: () => ({
     valid: true,
     email: '',
@@ -152,17 +153,25 @@ export default {
       min: v => v.length >= 0 || 'Min 8 characters',
     },
     password: '',
-    nickname: '',
-    suggestName: '',
     show: false
   }),
   components: {
     Footer,
   },
   methods: {
-      submit () {
-        console.log("TESTE")
-      },
+    submit () {
+      if (this.$refs.form.validate()) {
+        Vue.axios.post('http://ec2-54-207-126-182.sa-east-1.compute.amazonaws.com:8080/valorozo-app/api/v1/user/login', {
+          email: this.email,
+          password: this.password
+        }).then(response => {
+          localStorage.setItem('nickname', response.data.nickname);
+          this.$router.push('/thanks');
+        }).catch(error => {
+          console.log(error);
+        });
+      }
+    }
   }
 }
 </script>
