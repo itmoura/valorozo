@@ -44,6 +44,8 @@
               v-model="suggestName"
               label="Sugestão de nome para o site"
               prepend-inner-icon="mdi-lightbulb-on"
+              messages="Melhor nome sugerido irá ganhar Selo + Brinde"
+              class="suggest-name-field"
           ></v-text-field>
 
           <div class="btnBorder">
@@ -120,6 +122,15 @@
   letter-spacing: 0.1em;
   font-size: 1.1rem;
   border-radius: 0;
+}
+
+@media screen and (max-width: 910px) {
+  .box {
+    width: 100%;
+  }
+  .box form {
+    width: 90%;
+  }
 }
 </style>
 
